@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import "./style.css";
 interface Props {
     children: JSX.Element;

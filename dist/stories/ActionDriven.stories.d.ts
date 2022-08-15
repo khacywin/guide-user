@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import "./style.css";
 declare const _default: {
     title: string;

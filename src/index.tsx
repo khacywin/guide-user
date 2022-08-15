@@ -6,7 +6,7 @@ import React, { useContext } from "react";
 import ActionDrivenComponent from "./ActionDrivenComponent";
 import TourComponent from "./TourComponent";
 
-interface Props {
+export interface GuideUserProps {
   children: JSX.Element;
   message?: string;
   position?: ("left" | "right" | "top" | "bottom")[];
@@ -16,7 +16,7 @@ interface Props {
   type?: "button" | "input";
 }
 
-export default function Guide(props: Props) {
+export default function Guide(props: GuideUserProps) {
   const { mode } = useContext(Context);
 
   return mode === "action-driven" ? (

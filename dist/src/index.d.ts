@@ -1,7 +1,7 @@
 import "./style.css";
 import { GuideProvider as Provider } from "./GuideContext";
 import React from "react";
-interface Props {
+export interface GuideUserProps {
     children: JSX.Element;
     message?: string;
     position?: ("left" | "right" | "top" | "bottom")[];
@@ -10,17 +10,6 @@ interface Props {
     title?: string;
     type?: "button" | "input";
 }
-export default function Guide(props: Props): JSX.Element;
-export declare const GuideContext: React.Context<import("./GuideContext").IGuide>;
+export default function Guide(props: GuideUserProps): JSX.Element;
+export declare const GuideContext: React.Context<import("./GuideContext").IGuideContext>;
 export declare const GuideProvider: typeof Provider;
-export interface IGuide {
-    mode?: "tour" | "action-driven";
-    nextStep?: any;
-    previousStep?: any;
-    run: boolean;
-    setStep: any;
-    setTotal?: any;
-    step: number;
-    total?: number;
-}
-export {};

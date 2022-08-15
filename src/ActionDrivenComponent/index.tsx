@@ -1,9 +1,9 @@
 import "./style.css";
 
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+import ReactDOM from "react-dom";
 
 import GuideContext from "./../GuideContext";
-import ReactDOM from "react-dom";
 import generateId from "../generateId";
 import icon from "./../guide.svg";
 import useHandlePosition from "../useHandlePosition";
@@ -28,9 +28,13 @@ export default function ({
   const ref = useRef<any>(null);
   const refMark = useRef<HTMLDivElement>(null);
 
-  const { run,setRun, step: stepContext, setStep, nextStep } = useContext(
-    GuideContext
-  );
+  const {
+    run,
+    setRun,
+    step: stepContext,
+    setStep,
+    nextStep,
+  } = useContext(GuideContext);
   const [active, setActive] = useState(false);
   const refChildren = useRef<any>(null);
 
@@ -39,7 +43,7 @@ export default function ({
     add: {},
   });
 
-  const _skip = (e: React.MouseEvent) => {
+  const onSkip = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -51,10 +55,14 @@ export default function ({
     setActive(run && step === stepContext);
   }, [stepContext, run, step]);
 
+  // Handle next step
   useEffect(() => {
     if (!active || type !== "input") return;
 
     const ele = ref.current?.getElementsByTagName("input")?.[0];
+
+    if (!ele) return;
+
     ele?.focus();
     ele?.addEventListener("blur", (e: any) => {
       if (e.target.value) {
@@ -71,10 +79,12 @@ export default function ({
     };
   }, [type, active]);
 
+  // Trigger position of popup
   useEffect(() => {
     active && handlePosition();
   }, [active]);
 
+  // Handle position of mark
   useEffect(() => {
     if (!refMark.current?.getBoundingClientRect()) return;
 
@@ -89,6 +99,7 @@ export default function ({
       <div className="w-guide-mark" ref={refMark} />
       <div ref={ref} className="w-guide-wrap">
         {React.cloneElement(children, {
+          ...children.props,
           onClick: (e: any) => {
             children.props.onClick && children.props.onClick(e);
             type !== "input" && nextStep();
@@ -99,8 +110,8 @@ export default function ({
             (type === "button"
               ? " w-guide-tap-click"
               : type === "input"
-                ? " w-guide-input"
-                : " "),
+              ? " w-guide-input"
+              : " "),
         })}
       </div>
       {ReactDOM.createPortal(
@@ -108,7 +119,7 @@ export default function ({
           <img src={icon} />
           <div className="w-guide-container">
             <div>{text}</div>
-            <button className="w-guide-skip" onClick={_skip}>
+            <button className="w-guide-skip" onClick={onSkip}>
               Skip all
             </button>
           </div>

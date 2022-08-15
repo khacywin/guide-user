@@ -1,6 +1,6 @@
 import React, { createContext, useMemo, useState } from "react";
 
-export interface IGuide {
+export interface IGuideContext {
   mode?: "tour" | "action-driven";
   nextStep?: any;
   previousStep?: any;
@@ -12,7 +12,7 @@ export interface IGuide {
   total?: number;
 }
 
-const GuideContext = createContext<IGuide>({
+const GuideContext = createContext<IGuideContext>({
   mode: "action-driven",
   nextStep: () => {},
   previousStep: () => {},
@@ -27,7 +27,7 @@ const GuideContext = createContext<IGuide>({
 export default GuideContext;
 
 interface IGuideProvider {
-  value?: Partial<IGuide>;
+  value?: Partial<IGuideContext>;
   children?: any;
 }
 
@@ -52,7 +52,7 @@ export function GuideProvider({ value = {}, children }: IGuideProvider) {
     }
   };
 
-  const defaultValue: IGuide = useMemo(
+  const defaultValue: IGuideContext = useMemo(
     () => ({
       mode: "action-driven",
       nextStep,

@@ -1,5 +1,5 @@
 {
-  "name": "user-tutorial",
+  "name": "guide-user",
   "version": "1.0.3",
   "description": "React package about user dashboard",
   "main": "dist/index.cjs.js",
@@ -9,7 +9,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "prepare": "rollup -c"
   },
   "repository": {
     "type": "git",
